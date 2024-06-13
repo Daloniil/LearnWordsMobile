@@ -18,7 +18,7 @@ async function start() {
 
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('/api/docs', app, document);
-
+    app.setGlobalPrefix('api/auth');
     await app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 }
 
