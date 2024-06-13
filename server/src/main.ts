@@ -1,13 +1,12 @@
 import {NestFactory} from "@nestjs/core";
 import {AppModule} from "./app.module";
-import {ValidationPipe} from "@nestjs/common";
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
+import {ValidationPipe} from "./pipes/validation.pipe";
 
 async function start() {
     const PORT = process.env.PORT || 5001;
     const app = await NestFactory.create(AppModule);
     app.useGlobalPipes(new ValidationPipe());
-
 
     const config = new DocumentBuilder()
         .setTitle("Learn Words Auth")
