@@ -1,7 +1,7 @@
-import {App, Credentials, Realm} from 'realm';
-import {TestSchema} from './schemas';
+import { App, Credentials, Realm } from "realm";
+import {TestCollectionsSchema} from "../schemas/TestCollectionSchema.ts";
 
-const appId = 'sync-word-euxrlxr';
+const appId = "sync-word-euxrlxr";
 const appConfig = {
     id: appId,
     timeout: 10000,
@@ -20,19 +20,20 @@ export async function getRealm() {
     }
 
     const config = {
-        schema: [TestSchema],
+        schema: [TestCollectionsSchema],
         sync: {
             flexible: true,
             user: app.currentUser,
         },
     };
 
+    //@ts-ignore
     const realm = await Realm.open(config);
 
-    const existingSubscription = realm.subscriptions.findByName("allTestCollection");
+    const existingSubscription = realm.subscriptions.findByName("allTestCollections");
     if (!existingSubscription) {
         await realm.subscriptions.update(mutableSubs => {
-            mutableSubs.add(realm.objects("TestCollection"), { name: "allTestCollection" });
+            mutableSubs.add(realm.objects("TestCollections"), { name: "allTestCollections" });
         });
         await realm.subscriptions.waitForSynchronization();
     }
