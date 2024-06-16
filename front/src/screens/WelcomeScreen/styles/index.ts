@@ -12,7 +12,7 @@ export const Description = styled.Text`
     color: #666;
     text-align: center;
     margin-bottom: 40px;
-    padding: 30px 0 0 0;
+    padding: 10px 0 0 0;
 `;
 
 export const StyledButton = styled.TouchableOpacity`

@@ -1,44 +1,22 @@
 import React from 'react';
-import {Text, Button} from 'react-native';
+import {ActivityIndicator, TouchableOpacity} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import styled from 'styled-components/native';
 import {LoginFormInputs, LoginProps} from "./types";
 import useLogin from "./hooks";
+import {Text} from "../../../components/Text";
+import {useTheme} from "../../../contexts/Theme/ThemeContext.tsx";
+import {lightTheme} from "../../../contexts/Theme/theme.ts";
+import {Button, Container, ErrorText, StyledDarkInput, StyledDefaultInput} from "./styles";
+import {ButtonText} from "../../WelcomeScreen/styles";
 
-const schema = yup.object().shape({
-    email: yup.string().email('Неверный email').required('Email обязателен'),
-    password: yup.string().min(6, 'Минимум 6 символов').required('Пароль обязателен')
-});
-
-const Container = styled.View`
-    flex: 1;
-    justify-content: center;
-    padding: 16px;
-    background-color: #f5f5f5;
-`;
-
-const StyledInput = styled.TextInput`
-    height: 40px;
-    border-color: gray;
-    border-width: 1px;
-    margin-bottom: 12px;
-    padding: 10px;
-    background-color: white;
-`;
-
-const ErrorText = styled.Text`
-    color: red;
-    margin-bottom: 12px;
-`;
 
 const LoginScreen: React.FC<LoginProps> = ({navigation}) => {
-    const {login, loading, error} = useLogin();
+    const {theme} = useTheme();
+    const {login, loading, error, schema, t} = useLogin();
     const {control, handleSubmit, formState: {errors}} = useForm<LoginFormInputs>({
         resolver: yupResolver(schema)
     });
-
 
     const onSubmit = async (data: any) => {
         await login({email: data.email, password: data.password});
@@ -46,16 +24,25 @@ const LoginScreen: React.FC<LoginProps> = ({navigation}) => {
 
     return (
         <Container>
-            <Text>Login</Text>
+            <Text fontSize={24} fontWeight={'800'} style={{marginBottom: 24}}>{t('login.title')}</Text>
             <Controller
                 control={control}
                 render={({field: {onChange, onBlur, value}}) => (
-                    <StyledInput
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                        placeholder="Email"
-                    />
+                    <>
+                        {theme === lightTheme ? <StyledDefaultInput
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholder={t('login.titleEmail')}
+                            keyboardType="email-address"
+                        /> : <StyledDarkInput
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholder={t('login.titleEmail')}
+                            keyboardType="email-address"
+                        />}
+                    </>
                 )}
                 name="email"
             />
@@ -64,24 +51,33 @@ const LoginScreen: React.FC<LoginProps> = ({navigation}) => {
             <Controller
                 control={control}
                 render={({field: {onChange, onBlur, value}}) => (
-                    <StyledInput
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                        placeholder="Password"
-                        secureTextEntry
-                    />
+                    <>
+                        {theme === lightTheme ? <StyledDefaultInput
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholder={t('login.titlePassword')}
+                            keyboardType="email-address"
+                        /> : <StyledDarkInput
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholder={t('login.titlePassword')}
+                            secureTextEntry
+                        />}
+                    </>
                 )}
                 name="password"
             />
             {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
 
-            <Button title="Login" onPress={handleSubmit(onSubmit)}/>
+            <Button onPress={handleSubmit(onSubmit)} disabled={loading}>
+                {loading ? <ActivityIndicator color="#fff"/> : <ButtonText>{t('login.title')}</ButtonText>}
+            </Button>
 
-            <Button
-                title="Sign Up"
-                onPress={() => navigation.navigate('Register')}
-            />
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                <Text style={{color: '#007bff'}}>{t('login.signUp')}</Text>
+            </TouchableOpacity>
         </Container>
     );
 };

@@ -3,5 +3,15 @@
     "title": "Welcome to Learn Words ",
     "description": "Learn Words helps you learn new words in different languages. Create dictionaries, take quizzes, and organize your words into folders",
     "button": "Start"
+  },
+  "login": {
+    "title": "Login",
+    "titleEmail": "Email",
+    "titlePassword": "Password",
+    "wrongEmail": "Invalid Email",
+    "requiredEmail": "Email required",
+    "wrongPassword": "Minimum 6 characters",
+    "requiredPassword": "Password required",
+    "signUp": "Sign Up"
   }
 }

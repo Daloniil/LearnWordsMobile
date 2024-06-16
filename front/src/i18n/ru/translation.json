@@ -3,6 +3,15 @@
     "title": "Добро пожаловать в Learn Words",
     "description": "Learn Words помогает вам изучать новые слова на различных языках. Создавайте словари, проходите тесты и организуйте свои слова в папки",
     "button": "Начать"
-
+  },
+  "login": {
+    "title": "Вход",
+    "titleEmail": "Почта",
+    "titlePassword": "Пароль",
+    "wrongEmail": "Неверный email",
+    "requiredEmail": "Email обязателен",
+    "wrongPassword": "'Минимум 6 символов",
+    "requiredPassword": "Пароль обязателен'",
+    "signUp": "Sign Up"
   }
 }

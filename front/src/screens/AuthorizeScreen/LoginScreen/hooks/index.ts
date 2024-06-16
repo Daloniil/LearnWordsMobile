@@ -2,9 +2,12 @@ import {useState} from 'react';
 import axiosInstance from "../../../../services/axiosInstance.ts";
 import {LoginData, UseLoginResult} from "../types";
 import axios from "axios";
+import * as yup from "yup";
+import {useTranslation} from "react-i18next";
 
 
 const useLogin = (): UseLoginResult => {
+    const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>(null);
 
@@ -24,10 +27,18 @@ const useLogin = (): UseLoginResult => {
         }
     };
 
+    const schema = yup.object().shape({
+        email: yup.string().email(t('login.wrongEmail')).required(t('login.requiredEmail')),
+        password: yup.string().min(6, t('login.wrongPassword')).required(t('login.requiredPassword'))
+    });
+
+
     return {
         login,
         loading,
         error,
+        schema,
+        t,
     };
 };
 
