@@ -12,7 +12,7 @@ export const StyledLayout = styled.View<LayoutProps>`
     ${(props) => css`
         flex: ${props.flex || 1};
         background-color: ${props.backgroundColor || props.theme.background};
-        padding: ${props.padding || 0}px;
+        padding: ${props.padding || 5}px;
         margin: ${props.margin || 0}px;
         align-items: ${props.alignItems || 'stretch'};
         justify-content: ${props.justifyContent || 'flex-start'};

@@ -6,20 +6,19 @@ import {Text} from "../../../components/Text";
 import {useTheme} from "../../../contexts/Theme/ThemeContext.tsx";
 import {lightTheme} from "../../../contexts/Theme/theme.ts";
 import {Button, ButtonText, Container, ErrorText, StyledDarkInput, StyledDefaultInput} from "../styles";
-import {LoginFormInputs, LoginProps} from "../types";
+import {SignInFormInputs, LoginProps} from "../types";
 import useLogin from "../hooks/useLogin.ts";
 
 
 export const LoginScreen: React.FC<LoginProps> = ({navigation}) => {
     const {theme} = useTheme();
-    const {singIn, loading, error, schema, t} = useLogin();
-    const {control, handleSubmit, formState: {errors}} = useForm<LoginFormInputs>({
-        resolver: yupResolver(schema)
+    const {singIn, loading, error, signInSchema, t} = useLogin();
+    const {control, handleSubmit, formState: {errors}} = useForm<SignInFormInputs>({
+        resolver: yupResolver(signInSchema)
     });
 
-    const onSubmit = async (data: any) => {
-        await singIn({email: data.email, password: data.password});
-    };
+    const onSubmit = async (data: any) => await singIn({email: data.email, password: data.password});
+
 
     return (
         <Container>

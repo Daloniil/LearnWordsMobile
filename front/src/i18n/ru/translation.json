@@ -18,9 +18,14 @@
     "title": "Зарегистрироваться",
     "titleEmail": "Почта",
     "titlePassword": "Пароль",
-    "wrongEmail": "Неверный email",
-    "requiredEmail": "Email обязателен",
+    "titleUsername": "Имя",
+    "titlePhoneNumber": "Номер Телефона",
+    "wrongEmail": "Неверная почта",
+    "requiredEmail": "Почта обязателеная",
+    "requiredUsername": "Имя обязателеное",
+    "requiredPhoneNumber": "Номер Телефона обязателеный",
+    "wrongPhoneNumber": "Номер Телефона неверный",
     "wrongPassword": "'Минимум 6 символов",
-    "requiredPassword": "Пароль обязателен'"
+    "requiredPassword": "Пароль обязателен"
   }
 }

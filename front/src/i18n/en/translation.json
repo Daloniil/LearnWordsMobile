@@ -18,8 +18,13 @@
     "title": "Sign Up",
     "titleEmail": "Email",
     "titlePassword": "Password",
+    "titleUsername": "Username",
+    "titlePhoneNumber": "Phone Number",
     "wrongEmail": "Invalid Email",
     "requiredEmail": "Email required",
+    "requiredUsername": "Username required",
+    "requiredPhoneNumber": "Phone Number required",
+    "wrongPhoneNumber": "Phone Number wrong",
     "wrongPassword": "Minimum 6 characters",
     "requiredPassword": "Password required"
   }

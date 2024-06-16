@@ -18,8 +18,13 @@
     "title": "Зареєструватися",
     "titleEmail": "Пошта",
     "titlePassword": "Пароль",
-    "wrongEmail": "Невірний email",
-    "requiredEmail": "Email обов'язковий",
+    "titleUsername": "Ім'я",
+    "titlePhoneNumber": "Номер Телефону",
+    "wrongEmail": "Невірна пошта",
+    "requiredEmail": "Пошта обов'язкова",
+    "requiredUsername": "Ім'я обов'язкове",
+    "requiredPhoneNumber": "Номер Телефону обов'язковий",
+    "wrongPhoneNumber": "Номер Телефону невірний",
     "wrongPassword": "'Мінімум 6 символів",
     "requiredPassword": "Пароль обов'язковий'"
   }

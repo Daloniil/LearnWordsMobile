@@ -9,7 +9,7 @@ const WelcomeScreen: React.FC<WelcomeProps> = ({navigation}) => {
 
     return (
         <Container>
-            <Text fontSize={28} fontWeight={'800'}>{t('welcome.title')}</Text>
+            <Text fontSize={28} fontWeight={'800'} style={{textAlign: 'center'}}>{t('welcome.title')}</Text>
             <Description>{displayedText}</Description>
             <StyledButton onPress={() => navigation.navigate('Authorize')}>
                 <ButtonText>{t('welcome.button')}</ButtonText>

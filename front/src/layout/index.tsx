@@ -1,4 +1,3 @@
-import styled, {css} from 'styled-components/native';
 import React from 'react';
 import {LayoutProps} from "./type.ts";
 import {StyledLayout} from "./layout.config.ts";

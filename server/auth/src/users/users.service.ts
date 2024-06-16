@@ -29,6 +29,11 @@ export class UsersService {
         return await this.userRepository.findOne({where: {email}, include: {all: true}})
     }
 
+    async getUserByPhoneNumber(phoneNumber: string) {
+        return await this.userRepository.findOne({where: {phoneNumber}, include: {all: true}})
+    }
+
+
     async addRole(dto: AdminRoleDto) {
         const user = await this.userRepository.findByPk(dto.userId)
         const role = await this.roleService.getRoleByValue(dto.value)
