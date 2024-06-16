@@ -22,10 +22,12 @@ export class RolesGuard implements CanActivate {
             if (!requiredRoles) {
                 return true;
             }
+
             const req = context.switchToHttp().getRequest();
             const auth = req.headers.authorization;
             const bearer = auth.split(" ")[0];
             const token = auth.split(" ")[1];
+
             if (bearer !== 'Bearer' || !token) {
                 throw new UnauthorizedException({message: 'User unauthorized'});
             }
@@ -34,6 +36,7 @@ export class RolesGuard implements CanActivate {
 
             return user.roles.some(role => requiredRoles.includes(role.value));
         } catch (error) {
+
             throw new HttpException('Not access', HttpStatus.FORBIDDEN);
         }
     }

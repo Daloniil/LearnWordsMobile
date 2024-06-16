@@ -12,6 +12,15 @@
     "requiredEmail": "Email обов'язковий",
     "wrongPassword": "'Мінімум 6 символів",
     "requiredPassword": "Пароль обов'язковий'",
-    "signUp": "Sign Up"
+    "signUp": "Зареєструватися"
+  },
+  "register": {
+    "title": "Зареєструватися",
+    "titleEmail": "Пошта",
+    "titlePassword": "Пароль",
+    "wrongEmail": "Невірний email",
+    "requiredEmail": "Email обов'язковий",
+    "wrongPassword": "'Мінімум 6 символів",
+    "requiredPassword": "Пароль обов'язковий'"
   }
 }

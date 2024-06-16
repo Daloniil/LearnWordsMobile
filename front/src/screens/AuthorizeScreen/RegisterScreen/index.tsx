@@ -1,57 +1,47 @@
 import React from 'react';
-import {Text, Button} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import styled from 'styled-components/native';
+import {Text} from "../../../components/Text";
+import {useTheme} from "../../../contexts/Theme/ThemeContext.tsx";
+import {lightTheme} from "../../../contexts/Theme/theme.ts";
+import {Button, ButtonText, Container, ErrorText, StyledDarkInput, StyledDefaultInput} from "../styles";
+import {LoginFormInputs} from "../types";
+import useLogin from "../hooks/useLogin.ts";
 
-const schema = yup.object().shape({
-    email: yup.string().email('Неверный email').required('Email обязателен'),
-    password: yup.string().min(6, 'Минимум 6 символов').required('Пароль обязателен')
-});
 
-const Container = styled.View`
-    flex: 1;
-    justify-content: center;
-    padding: 16px;
-    background-color: #f5f5f5;
-`;
-
-const StyledInput = styled.TextInput`
-    height: 40px;
-    border-color: gray;
-    border-width: 1px;
-    margin-bottom: 12px;
-    padding: 10px;
-    background-color: white;
-`;
-
-const ErrorText = styled.Text`
-    color: red;
-    margin-bottom: 12px;
-`;
-
-const RegisterScreen: React.FC = () => {
-    const {control, handleSubmit, formState: {errors}} = useForm({
+export const RegisterScreen = () => {
+    const {theme} = useTheme();
+    const {signUp, loading, error, schema, t} = useLogin();
+    const {control, handleSubmit, formState: {errors}} = useForm<LoginFormInputs>({
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = (data: any) => {
-        console.log(data);
+    const onSubmit = async (data: any) => {
+        await signUp({email: data.email, password: data.password});
     };
 
     return (
         <Container>
-            <Text>Register</Text>
+            <Text fontSize={24} fontWeight={'800'} style={{marginBottom: 24}}>{t('register.title')}</Text>
             <Controller
                 control={control}
                 render={({field: {onChange, onBlur, value}}) => (
-                    <StyledInput
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                        placeholder="Email"
-                    />
+                    <>
+                        {theme === lightTheme ? <StyledDefaultInput
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholder={t('register.titleEmail')}
+                            keyboardType="email-address"
+                        /> : <StyledDarkInput
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholder={t('register.titleEmail')}
+                            keyboardType="email-address"
+                        />}
+                    </>
                 )}
                 name="email"
             />
@@ -60,21 +50,31 @@ const RegisterScreen: React.FC = () => {
             <Controller
                 control={control}
                 render={({field: {onChange, onBlur, value}}) => (
-                    <StyledInput
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                        placeholder="Password"
-                        secureTextEntry
-                    />
+                    <>
+                        {theme === lightTheme ? <StyledDefaultInput
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholder={t('register.titlePassword')}
+                            keyboardType="email-address"
+                        /> : <StyledDarkInput
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholder={t('register.titlePassword')}
+                            secureTextEntry
+                        />}
+                    </>
                 )}
                 name="password"
             />
             {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
 
-            <Button title="Register" onPress={handleSubmit(onSubmit)}/>
+            <Button onPress={handleSubmit(onSubmit)} disabled={loading}>
+                {loading ? <ActivityIndicator color="#fff"/> : <ButtonText>{t('register.title')}</ButtonText>}
+            </Button>
+
         </Container>
     );
 };
 
-export default RegisterScreen;

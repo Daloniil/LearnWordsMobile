@@ -12,6 +12,15 @@
     "requiredEmail": "Email обязателен",
     "wrongPassword": "'Минимум 6 символов",
     "requiredPassword": "Пароль обязателен'",
-    "signUp": "Sign Up"
+    "signUp": "Зарегистрироваться"
+  },
+  "register": {
+    "title": "Зарегистрироваться",
+    "titleEmail": "Почта",
+    "titlePassword": "Пароль",
+    "wrongEmail": "Неверный email",
+    "requiredEmail": "Email обязателен",
+    "wrongPassword": "'Минимум 6 символов",
+    "requiredPassword": "Пароль обязателен'"
   }
 }

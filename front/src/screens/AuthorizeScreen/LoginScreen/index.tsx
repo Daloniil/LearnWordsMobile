@@ -2,23 +2,23 @@ import React from 'react';
 import {ActivityIndicator, TouchableOpacity} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
-import {LoginFormInputs, LoginProps} from "./types";
-import useLogin from "./hooks";
 import {Text} from "../../../components/Text";
 import {useTheme} from "../../../contexts/Theme/ThemeContext.tsx";
 import {lightTheme} from "../../../contexts/Theme/theme.ts";
-import {Button, ButtonText, Container, ErrorText, StyledDarkInput, StyledDefaultInput} from "./styles";
+import {Button, ButtonText, Container, ErrorText, StyledDarkInput, StyledDefaultInput} from "../styles";
+import {LoginFormInputs, LoginProps} from "../types";
+import useLogin from "../hooks/useLogin.ts";
 
 
-const LoginScreen: React.FC<LoginProps> = ({navigation}) => {
+export const LoginScreen: React.FC<LoginProps> = ({navigation}) => {
     const {theme} = useTheme();
-    const {login, loading, error, schema, t} = useLogin();
+    const {singIn, loading, error, schema, t} = useLogin();
     const {control, handleSubmit, formState: {errors}} = useForm<LoginFormInputs>({
         resolver: yupResolver(schema)
     });
 
     const onSubmit = async (data: any) => {
-        await login({email: data.email, password: data.password});
+        await singIn({email: data.email, password: data.password});
     };
 
     return (
@@ -81,4 +81,3 @@ const LoginScreen: React.FC<LoginProps> = ({navigation}) => {
     );
 };
 
-export default LoginScreen;

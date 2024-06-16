@@ -1,8 +1,8 @@
-import {Body, Controller, Post, UsePipes} from '@nestjs/common';
+import {Body, Controller, Post} from '@nestjs/common';
 import {CreateUserDto} from "../users/dto/create-user-dto";
 import {AuthService} from "./auth.service";
 import {ApiTags} from "@nestjs/swagger";
-import {ValidationPipe} from "../pipes/validation.pipe";
+import {LoginUserDto} from "../users/dto/login-user-dto";
 
 @ApiTags('Authorization on')
 @Controller('auth')
@@ -12,7 +12,7 @@ export class AuthController {
     }
 
     @Post('/login')
-    login(@Body() userDto: CreateUserDto) {
+    login(@Body() userDto: LoginUserDto) {
         return this.authService.login(userDto)
     }
 

@@ -1,7 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import LoginScreen from "./LoginScreen";
-import RegisterScreen from "./RegisterScreen";
 import {AuthorizeStackParamList} from "./types";
+import {LoginScreen} from "./LoginScreen";
+import {RegisterScreen} from "./RegisterScreen";
 
 const Stack = createStackNavigator<AuthorizeStackParamList>();
 

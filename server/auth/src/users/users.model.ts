@@ -6,6 +6,8 @@ import {UserRoles} from "../roles/user-roles.model";
 interface UserCreationsAttrs {
     email: string;
     password: string;
+    username: string;
+    phoneNumber:string;
 }
 
 @Table({tableName: 'users'})
@@ -14,6 +16,14 @@ export class User extends Model<User, UserCreationsAttrs> {
     @ApiProperty({example: '1', description: 'Id of User'})
     @Column({type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
     id: number;
+
+    @ApiProperty({example: 'Alice', description: 'Name of User'})
+    @Column({type: DataType.STRING, allowNull: false})
+    username: string;
+
+    @ApiProperty({example: '+380993335544', description: 'Phone Number'})
+    @Column({type: DataType.STRING, unique: true, allowNull: false})
+    phoneNumber: string;
 
     @ApiProperty({example: 'user@mail.com', description: 'Email'})
     @Column({type: DataType.STRING, unique: true, allowNull: false})

@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import axiosInstance from "../../../../services/axiosInstance.ts";
+import axiosInstance from "../../../services/axiosInstance.ts";
 import {LoginData, UseLoginResult} from "../types";
 import axios from "axios";
 import * as yup from "yup";
@@ -11,13 +11,25 @@ const useLogin = (): UseLoginResult => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>(null);
 
-    const login = async (data: LoginData) => {
+    const singIn = async (data: LoginData) => {
         setLoading(true);
         setError(null);
-
         try {
-            const response = await axiosInstance.post('/auth/auth/login', data);
-            console.log('Login successful', response.data);
+            return await axiosInstance.post('/auth/auth/login', data);
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                setError(err.response?.data?.message || 'Something went wrong');
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const signUp = async (data: LoginData) => {
+        setLoading(true);
+        setError(null);
+        try {
+            return await axiosInstance.post('/auth/auth/register', data);
         } catch (err: unknown) {
             if (axios.isAxiosError(err)) {
                 setError(err.response?.data?.message || 'Something went wrong');
@@ -34,7 +46,8 @@ const useLogin = (): UseLoginResult => {
 
 
     return {
-        login,
+        singIn,
+        signUp,
         loading,
         error,
         schema,
