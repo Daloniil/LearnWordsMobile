@@ -1,4 +1,7 @@
 {
-  "welcome": "Welcome",
-  "description": "This is an example description"
+  "welcome": {
+    "title": "Welcome to Learn Words ",
+    "description": "Learn Words helps you learn new words in different languages. Create dictionaries, take quizzes, and organize your words into folders",
+    "button": "Start"
+  }
 }

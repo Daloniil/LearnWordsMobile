@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { SafeAreaView, Text, FlatList, Button } from "react-native";
-import { useRealm } from "../../contexts/RealmContext.tsx";
-import { ObjectId } from "bson";
+import React, {useEffect, useState} from "react";
+import {SafeAreaView, FlatList, Button} from "react-native";
+import {useRealm} from "../../contexts/RealmContext.tsx";
+import {ObjectId} from "bson";
+import {Text} from "../../components/Text";
 
 type TestCollection = {
     _id: ObjectId;
@@ -40,11 +41,11 @@ export const HomeScreen: React.FC = () => {
 
     return (
         <SafeAreaView>
-            <Button title="Add Itemaas" onPress={addItem} />
+            <Button title="Add Itemaas" onPress={addItem}/>
             <FlatList
                 data={data}
                 keyExtractor={(item) => item._id.toString()}
-                renderItem={({ item }) => (
+                renderItem={({item}) => (
                     <Text>
                         {item.name} - {item.age}
                     </Text>

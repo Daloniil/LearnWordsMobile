@@ -1,22 +1,22 @@
 import React from "react";
-import {Button, SafeAreaView} from "react-native";
-import {WelcomeProps} from "./types";
 import {Text} from "../../components/Text";
-import { useTranslation } from 'react-i18next';
+import {ButtonText, Container, Description, StyledButton} from "./styles";
+import useTypingEffect from "./hooks";
+import {WelcomeProps} from "./types";
 
 const WelcomeScreen: React.FC<WelcomeProps> = ({navigation}) => {
-    const {t} = useTranslation();
+    const {displayedText, t} = useTypingEffect();
 
     return (
-        <SafeAreaView>
-            <Text>Welcome Page</Text>
-            <Text>{t('welcome')}</Text>
-            <Button
-                title="Go to Home"
-                onPress={() => navigation.navigate('Home')}
-            />
-        </SafeAreaView>
+        <Container>
+            <Text fontSize={28}>{t('welcome.title')}</Text>
+            <Description>{displayedText}</Description>
+            <StyledButton onPress={() => navigation.navigate('Home')}>
+                <ButtonText>{t('welcome.button')}</ButtonText>
+            </StyledButton>
+        </Container>
     );
 };
+
 
 export default WelcomeScreen;
