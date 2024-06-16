@@ -7,8 +7,7 @@ import useLogin from "./hooks";
 import {Text} from "../../../components/Text";
 import {useTheme} from "../../../contexts/Theme/ThemeContext.tsx";
 import {lightTheme} from "../../../contexts/Theme/theme.ts";
-import {Button, Container, ErrorText, StyledDarkInput, StyledDefaultInput} from "./styles";
-import {ButtonText} from "../../WelcomeScreen/styles";
+import {Button, ButtonText, Container, ErrorText, StyledDarkInput, StyledDefaultInput} from "./styles";
 
 
 const LoginScreen: React.FC<LoginProps> = ({navigation}) => {
