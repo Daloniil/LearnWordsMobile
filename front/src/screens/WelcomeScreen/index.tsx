@@ -11,7 +11,7 @@ const WelcomeScreen: React.FC<WelcomeProps> = ({navigation}) => {
         <Container>
             <Text fontSize={28}>{t('welcome.title')}</Text>
             <Description>{displayedText}</Description>
-            <StyledButton onPress={() => navigation.navigate('Home')}>
+            <StyledButton onPress={() => navigation.navigate('Main')}>
                 <ButtonText>{t('welcome.button')}</ButtonText>
             </StyledButton>
         </Container>
