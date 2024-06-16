@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text, FlatList, Button } from "react-native";
-import { useRealm } from "../contexts/RealmContext";
+import { useRealm } from "../../contexts/RealmContext.tsx";
 import { ObjectId } from "bson";
 
 type TestCollection = {
@@ -9,7 +9,7 @@ type TestCollection = {
     age: number;
 };
 
-const HomeScreen: React.FC = () => {
+export const HomeScreen: React.FC = () => {
     const [data, setData] = useState<TestCollection[]>([]);
     const realm = useRealm();
 
@@ -18,7 +18,6 @@ const HomeScreen: React.FC = () => {
 
         const collection = realm.objects<TestCollection>("TestCollections");
         collection.addListener((collections, changes) => {
-            console.log("collections", collections);
             setData([...collections]);
         });
 
@@ -55,4 +54,3 @@ const HomeScreen: React.FC = () => {
     );
 };
 
-export default HomeScreen;
