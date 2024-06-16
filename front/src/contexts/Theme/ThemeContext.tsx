@@ -1,7 +1,10 @@
-import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import { ThemeProvider as StyledThemeProvider } from 'styled-components/native';
-import { useColorScheme } from 'react-native';
-import { darkTheme, lightTheme, Theme } from './theme.ts';
+import React, {createContext, useState, useContext, ReactNode, useEffect} from 'react';
+import {ThemeProvider as StyledThemeProvider} from 'styled-components/native';
+import {useColorScheme} from 'react-native';
+import {darkTheme, lightTheme, Theme} from './theme.ts';
+import {I18nextProvider} from 'react-i18next';
+import {Layout} from "../../layout";
+import i18n from "../../i18n";
 
 interface ThemeContextProps {
     theme: Theme;
@@ -10,7 +13,7 @@ interface ThemeContextProps {
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
-export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const ThemeProvider: React.FC<{ children: ReactNode }> = ({children}) => {
     const colorScheme = useColorScheme();
     const [theme, setTheme] = useState<Theme>(colorScheme === 'dark' ? darkTheme : lightTheme);
 
@@ -23,9 +26,13 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     }, [colorScheme]);
 
     return (
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <ThemeContext.Provider value={{theme, toggleTheme}}>
             <StyledThemeProvider theme={theme}>
-                {children}
+                <I18nextProvider i18n={i18n}>
+                    <Layout>
+                        {children}
+                    </Layout>
+                </I18nextProvider>
             </StyledThemeProvider>
         </ThemeContext.Provider>
     );
