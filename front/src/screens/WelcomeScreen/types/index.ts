@@ -1,4 +1,4 @@
-import {RootStackParamList} from "../../../navigation/types.ts";
+import {RootStackParamList} from "../../../navigation/types/types.ts";
 import {StackNavigationProp} from "@react-navigation/stack";
 
 type WelcomeScreenNavigationProp = StackNavigationProp<
