@@ -17,6 +17,7 @@ export const StyledDefaultInput = styled.TextInput`
     border-radius: 8px;
     font-size: 16px;
     color: black;
+    text-transform: none;
 `;
 
 export const StyledDarkInput = styled.TextInput`
@@ -29,6 +30,7 @@ export const StyledDarkInput = styled.TextInput`
     border-radius: 8px;
     font-size: 16px;
     color: white;
+    text-transform: none;
 `;
 
 

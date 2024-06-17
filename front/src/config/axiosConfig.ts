@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const axiosInstance = axios.create({baseURL: 'http://localhost:7001/api',});
+const axiosConfig = axios.create({baseURL: 'http://localhost:7001/api',});
 
-axiosInstance.interceptors.request.use(
+axiosConfig.interceptors.request.use(
     config => {
         return config;
     },
@@ -11,7 +11,7 @@ axiosInstance.interceptors.request.use(
     }
 );
 
-axiosInstance.interceptors.response.use(
+axiosConfig.interceptors.response.use(
     response => {
         return response;
     },
@@ -20,4 +20,4 @@ axiosInstance.interceptors.response.use(
     }
 );
 
-export default axiosInstance;
+export default axiosConfig;

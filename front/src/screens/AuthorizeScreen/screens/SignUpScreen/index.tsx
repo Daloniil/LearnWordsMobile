@@ -2,22 +2,28 @@ import React from 'react';
 import {ActivityIndicator} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
-import {Text} from "../../../components/Text";
-import {useTheme} from "../../../contexts/Theme/ThemeContext.tsx";
-import {lightTheme} from "../../../contexts/Theme/theme.ts";
-import {Button, ButtonText, Container, ErrorText, StyledDarkInput, StyledDefaultInput} from "../styles";
-import {SignUpFormInputs} from "../types";
-import useLogin from "../hooks/useLogin.ts";
+import {Text} from "../../../../components/Text";
+import {useTheme} from "../../../../contexts/Theme/ThemeContext.tsx";
+import {lightTheme} from "../../../../contexts/Theme/theme.ts";
+import {Button, ButtonText, Container, ErrorText, StyledDarkInput, StyledDefaultInput} from "../../styles";
+import {SignUpFormInputs} from "../../types";
+import useLogin from "../../hooks/useLogin.ts";
+import {useSignUpValidationSchema} from "../../../../validations/signUpSchema.ts";
+import {useTranslation} from "react-i18next";
 
 
-export const RegisterScreen = () => {
+export const SignUpScreen = () => {
+
+    const {t} = useTranslation();
     const {theme} = useTheme();
-    const {signUp, loading, error, signUpSchema, t} = useLogin();
+    const {signUp, loading, error} = useLogin();
+    const {signUpSchema} = useSignUpValidationSchema()
+
     const {control, handleSubmit, formState: {errors}} = useForm<SignUpFormInputs>({
         resolver: yupResolver(signUpSchema)
     });
 
-    const onSubmit = async (data: any) => {
+    const onSubmit = async (data: SignUpFormInputs) => {
         await signUp({
             email: data.email,
             password: data.password,
@@ -39,11 +45,13 @@ export const RegisterScreen = () => {
                             onChangeText={onChange}
                             value={value}
                             placeholder={t('register.titleUsername')}
+                            autoCapitalize="none"
                         /> : <StyledDarkInput
                             onBlur={onBlur}
                             onChangeText={onChange}
                             value={value}
                             placeholder={t('register.titleUsername')}
+                            autoCapitalize="none"
                         />}
                     </>
                 )}
@@ -63,11 +71,13 @@ export const RegisterScreen = () => {
                             value={value}
                             placeholder={t('register.titlePhoneNumber')}
                             keyboardType="email-address"
+                            autoCapitalize="none"
                         /> : <StyledDarkInput
                             onBlur={onBlur}
                             onChangeText={onChange}
                             value={value}
                             placeholder={t('register.titlePhoneNumber')}
+                            autoCapitalize="none"
                         />}
                     </>
                 )}
@@ -86,12 +96,14 @@ export const RegisterScreen = () => {
                             value={value}
                             placeholder={t('register.titleEmail')}
                             keyboardType="email-address"
+                            autoCapitalize="none"
                         /> : <StyledDarkInput
                             onBlur={onBlur}
                             onChangeText={onChange}
                             value={value}
                             placeholder={t('register.titleEmail')}
                             keyboardType="email-address"
+                            autoCapitalize="none"
                         />}
                     </>
                 )}
@@ -109,12 +121,14 @@ export const RegisterScreen = () => {
                             value={value}
                             placeholder={t('register.titlePassword')}
                             secureTextEntry
+                            autoCapitalize="none"
                         /> : <StyledDarkInput
                             onBlur={onBlur}
                             onChangeText={onChange}
                             value={value}
                             placeholder={t('register.titlePassword')}
                             secureTextEntry
+                            autoCapitalize="none"
                         />}
                     </>
                 )}
