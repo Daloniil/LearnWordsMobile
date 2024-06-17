@@ -3,6 +3,8 @@ import {SafeAreaView, FlatList, Button} from "react-native";
 import {useRealm} from "../../contexts/RealmContext.tsx";
 import {ObjectId} from "bson";
 import {Text} from "../../components/Text";
+import {useAppDispatch} from "../../store/hooks.ts";
+import {removeAuthData} from "../../services/SQLAuthService.ts";
 
 type TestCollection = {
     _id: ObjectId;
@@ -39,8 +41,15 @@ export const HomeScreen: React.FC = () => {
         });
     };
 
+    const dispatch = useAppDispatch();
+
+    const handleLogout = async () => {
+        await removeAuthData(dispatch);
+    };
+
     return (
         <SafeAreaView>
+            <Button title="Logout" onPress={handleLogout}/>
             <Button title="Add Itemaas" onPress={addItem}/>
             <FlatList
                 data={data}
