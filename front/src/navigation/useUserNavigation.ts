@@ -9,7 +9,7 @@ const useUserNavigation = () => {
 
     useEffect(() => {
         if (user) {
-            navigation.dispatch(StackActions.replace('Home'));
+            navigation.dispatch(StackActions.replace('Main'));
         } else {
             navigation.dispatch(StackActions.replace('Welcome'));
         }
