@@ -5,11 +5,13 @@ import {JwtService} from "@nestjs/jwt";
 import * as bcrypt from "bcryptjs"
 import {User} from "../users/users.model";
 import {LoginUserDto} from "../users/dto/login-user-dto";
+import {ConfigService} from "@nestjs/config";
 
 @Injectable()
 export class AuthService {
 
-    constructor(private readonly userRepository: UsersService, private jwtService: JwtService) {
+    constructor(private readonly userRepository: UsersService, private jwtService: JwtService, private readonly configService: ConfigService,
+    ) {
     }
 
     async login(userDto: LoginUserDto) {
@@ -36,14 +38,26 @@ export class AuthService {
 
 
     private async generateToken(user: User) {
-        const payload = {email: user.email, id: user.id, username:user.username, phoneNumber:user.phoneNumber,  roles: user.role};
+        const payload = {
+            email: user.email,
+            id: user.id,
+            username: user.username,
+            phoneNumber: user.phoneNumber,
+            roles: user.role,
+            iss: 'd3b07384d113edec49eaa6238ad5ff001',
+            sub: user.id.toString(),
+            aud: 'testing-dtytgpo'
+        };
         return {
-            token: this.jwtService.sign(payload),
+            token: this.jwtService.sign(payload, {
+                secret: 'd3b07384d113edec49eaa6238ad5ff001',
+                algorithm: 'HS256',
+            }),
         }
     }
 
     private async validateUser(userDto: LoginUserDto) {
-        try{
+        try {
             const user = await this.userRepository.getUserByEmail(userDto.email);
             const passwordEquals = await bcrypt.compare(userDto.password, user.password);
             if (user && passwordEquals) {
@@ -51,7 +65,7 @@ export class AuthService {
             } else {
                 throw new UnauthorizedException({message: 'Wrong email or password'});
             }
-        }catch(error){
+        } catch (error) {
             throw new UnauthorizedException({message: 'Wrong email or password'});
         }
     }

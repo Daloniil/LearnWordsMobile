@@ -9,7 +9,7 @@ import {Button, ButtonText, Container, ErrorText, StyledDarkInput, StyledDefault
 import {SignInFormInputs, LoginProps} from "../../types";
 import useLogin from "../../hooks/useLogin.ts";
 import {useAppSelector} from "../../../../store/hooks.ts";
-import {useSignInValidationSchema} from "../../../../validations/signInSchema.ts";
+import {useSignInValidationSchema} from "../../../../schemas/signInSchema.ts";
 import {useTranslation} from "react-i18next";
 
 
@@ -27,7 +27,6 @@ export const SignInScreen: React.FC<LoginProps> = ({navigation}) => {
 
     const onSubmit = async (data: SignInFormInputs) => await signIn({email: data.email, password: data.password});
 
-    console.log('user', user)
     return (
         <Container>
             <Text fontSize={24} fontWeight={'800'} style={{marginBottom: 24}}>{t('login.title')}</Text>

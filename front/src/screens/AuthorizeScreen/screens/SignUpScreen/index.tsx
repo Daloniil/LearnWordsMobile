@@ -8,7 +8,7 @@ import {lightTheme} from "../../../../contexts/Theme/theme.ts";
 import {Button, ButtonText, Container, ErrorText, StyledDarkInput, StyledDefaultInput} from "../../styles";
 import {SignUpFormInputs} from "../../types";
 import useLogin from "../../hooks/useLogin.ts";
-import {useSignUpValidationSchema} from "../../../../validations/signUpSchema.ts";
+import {useSignUpValidationSchema} from "../../../../schemas/signUpSchema.ts";
 import {useTranslation} from "react-i18next";
 
 

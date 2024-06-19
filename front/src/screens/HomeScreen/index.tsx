@@ -1,60 +1,21 @@
-import React, {useEffect, useState} from "react";
-import {SafeAreaView, FlatList, Button} from "react-native";
-import {useRealm} from "../../contexts/RealmContext.tsx";
-import {ObjectId} from "bson";
+import React from "react";
+import {SafeAreaView, Button, FlatList} from "react-native";
 import {Text} from "../../components/Text";
-import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
-import {removeAuthData} from "../../services/SQLAuthService.ts";
-
-type TestCollection = {
-    _id: ObjectId;
-    name: string;
-    age: number;
-};
+import {useUserData} from "./userOperations.ts";
+import {useAppSelector} from "../../store/hooks.ts";
 
 export const HomeScreen: React.FC = () => {
-    const user = useAppSelector(state => state.user);
+    const user = useAppSelector(state => state.user.user);
+    const {data, addUser, handleLogout} = useUserData();
 
-    const [data, setData] = useState<TestCollection[]>([]);
-    const realm = useRealm();
-
-    useEffect(() => {
-        if (!realm) return;
-
-        const collection = realm.objects<TestCollection>("TestCollections");
-        collection.addListener((collections, changes) => {
-            setData([...collections]);
-        });
-
-        return () => {
-            collection.removeAllListeners();
-        };
-    }, [realm]);
-
-    const addItem = () => {
-        if (!realm) return;
-
-        realm.write(() => {
-            realm.create("TestCollections", {
-                _id: new ObjectId(),
-                name: "New Item",
-                age: Math.floor(Math.random() * 100),
-            });
-        });
+    const addItem = async () => {
+        if (user) await addUser(user.userId, "New Item", Math.floor(Math.random() * 100));
     };
-
-    const dispatch = useAppDispatch();
-
-    const handleLogout = async () => {
-        await removeAuthData(dispatch);
-    };
-
-    console.log('user', user)
 
     return (
         <SafeAreaView>
             <Button title="Logout" onPress={handleLogout}/>
-            <Button title="Add Itemaas" onPress={addItem}/>
+            <Button title="Add Item" onPress={addItem}/>
             <FlatList
                 data={data}
                 keyExtractor={(item) => item._id.toString()}
@@ -67,4 +28,3 @@ export const HomeScreen: React.FC = () => {
         </SafeAreaView>
     );
 };
-

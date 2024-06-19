@@ -5,13 +5,13 @@ import {HomeScreen} from "../screens/HomeScreen";
 import {MainScreen} from "../screens/MainScreen";
 import {AuthorizeScreen} from "../screens/AuthorizeScreen";
 import {RootStackParamList} from "./types";
-import useUserNavigation from "./useUserNavigation.ts";
+import useAuthNavigation from "./useAuthNavigation.ts";
 
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = () => {
-    useUserNavigation();
+    useAuthNavigation();
     return (
         <Stack.Navigator initialRouteName="Welcome" screenOptions={{animationEnabled: false}}>
             <Stack.Screen

@@ -6,8 +6,11 @@ import {I18nextProvider} from 'react-i18next';
 import {Layout} from "../../layout";
 import i18n from "../../i18n";
 import {DarkTheme, DefaultTheme, NavigationContainer} from "@react-navigation/native";
-import {ThemeContextProps} from "./types.ts";
 
+export interface ThemeContextProps {
+    theme: Theme;
+    toggleTheme: () => void;
+}
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
@@ -28,9 +31,9 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({children}) => 
             <StyledThemeProvider theme={theme}>
                 <I18nextProvider i18n={i18n}>
                     <Layout>
-                        <NavigationContainer theme={theme === lightTheme ? DefaultTheme : DarkTheme}>
-                            {children}
-                        </NavigationContainer>
+                            <NavigationContainer theme={theme === lightTheme ? DefaultTheme : DarkTheme}>
+                                {children}
+                            </NavigationContainer>
                     </Layout>
                 </I18nextProvider>
             </StyledThemeProvider>

@@ -28,5 +28,5 @@ export const initializeAuthData = async (dispatch: AppDispatch) => {
 
 export const removeAuthData = async (dispatch: AppDispatch) => {
     await deleteUser();
-    dispatch(clearUser(''));
+    dispatch(clearUser());
 };

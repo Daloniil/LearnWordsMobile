@@ -1,38 +1,51 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { getRealm } from "../services/realmService";
-import { Realm } from "realm";
+import { useAppSelector } from "../store/hooks";
+import { getRealm } from "../services/realmAuthService.ts";
+import Realm from "realm";
 
-interface RealmProviderProps {
-    children: ReactNode;
+interface RealmContextProps {
+    realm: Realm | null;
 }
 
-const RealmContext = createContext<Realm | null>(null);
+const RealmContext = createContext<RealmContextProps | null>(null);
 
-export const RealmProvider: React.FC<RealmProviderProps> = ({ children }) => {
+export const RealmProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [realm, setRealm] = useState<Realm | null>(null);
+    const user = useAppSelector(state => state.user.user);
 
     useEffect(() => {
-        const initializeRealm = async () => {
-            const realmInstance = await getRealm();
-            setRealm(realmInstance);
+        const setupRealm = async () => {
+            if (user) {
+                const realmInstance = await getRealm(user.token);
+                setRealm(realmInstance);
+            }
         };
 
-        initializeRealm();
+        setupRealm();
 
         return () => {
             if (realm) {
                 realm.close();
             }
         };
-    }, []);
+    }, [user]);
 
     return (
-        <RealmContext.Provider value={realm}>
+        <RealmContext.Provider value={{ realm }}>
             {children}
         </RealmContext.Provider>
     );
 };
 
+export const useRealmContext = () => {
+    const context = useContext(RealmContext);
+    if (!context) {
+        throw new Error("useServiceContext must be used within a ServiceProvider");
+    }
+    return context;
+};
+
 export const useRealm = () => {
-    return useContext(RealmContext);
+    const { realm } = useRealmContext();
+    return realm;
 };

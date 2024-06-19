@@ -9,11 +9,9 @@ const insertOrUpdateUser = (user: UserModelType): Promise<void> => {
          VALUES (1, ?, ?, ?, ?, ?, ?)`,
                 [user.email, user.userId, user.username, user.phoneNumber, user.roles, user.token],
                 (tx, results) => {
-                    console.log('User inserted/updated successfully');
                     resolve();
                 },
                 (tx, error) => {
-                    console.error('Error inserting/updating user:', tx);
                     reject(error);
                 }
             );
@@ -29,10 +27,8 @@ const getUser = (): Promise<UserModelType | null> => {
                 [],
                 (tx, results) => {
                     if (results.rows.length > 0) {
-                        console.log('User retrieved successfully');
                         resolve(results.rows.item(0) as UserModelType);
                     } else {
-                        console.log('No user found');
                         resolve(null);
                     }
                 },
@@ -52,11 +48,9 @@ const deleteUser = (): Promise<void> => {
                 'DELETE FROM User WHERE id = 1',
                 [],
                 (tx, results) => {
-                    console.log('User deleted successfully');
                     resolve();
                 },
                 (tx, error) => {
-                    console.error('Error deleting user:', error);
                     reject(error);
                 }
             );

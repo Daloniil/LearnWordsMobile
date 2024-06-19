@@ -67,7 +67,6 @@ export class UsersService {
 
         user.banned = true
         user.banReason = dto.banReason
-        console.log(user)
         await user.save()
         return user
     }

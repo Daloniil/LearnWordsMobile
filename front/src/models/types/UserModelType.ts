@@ -7,3 +7,7 @@ export interface UserModelType {
     roles: string;
     token: string;
 }
+
+export interface UserState {
+    user: UserModelType | null;
+}
