@@ -1,53 +1,52 @@
-import { useEffect, useState } from "react";
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { removeAuthData } from "../../services/SQLAuthService";
-import { User } from "../../schemas/userSchema.ts";
-import { useRealm } from "../../contexts/RealmContext";
-import { ObjectId } from "bson";
+import {useEffect, useState} from "react";
+import {useAppSelector, useAppDispatch} from "../../store/hooks";
+import {removeAuthData} from "../../services/SQLAuthService";
+import {useRealm} from "../../contexts/RealmContext";
+import {ObjectId} from "bson";
+import {Course, COURSES, Courses} from "../../schemas/coursesSchema.ts";
 
 export const useUserData = () => {
     const realm = useRealm();
     const user = useAppSelector(state => state.user.user);
     const dispatch = useAppDispatch();
-    const [data, setData] = useState<User[]>([]);
+    const [data, setData] = useState<Courses | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             if (user) {
-                const users = getUsers(user.userId);
-                setData([...users]);
+                const courses = getCourses(user.userId);
+                setData(courses);
             }
         };
 
         fetchData();
     }, [realm]);
 
-    const addUser = async (userId: number, name: string, age: number) => {
+    const addCourse = async (userId: number, course: Course) => {
         if (!realm) return;
 
         realm.write(() => {
-            realm.create("User", {
+            realm.create(COURSES.LANGUAGE_COURSES_TITLE, {
                 _id: new ObjectId(),
-                name,
-                age,
+                courses: [course],
                 ownerId: userId
             });
         });
-        const users = getUsers(userId);
-        setData([...users]);
+        const courses = getCourses(userId);
+        setData(courses);
     };
 
-    const getUsers = (userId: number): User[] => {
-        if (!realm) return [];
-        return realm.objects<User>("User").filtered("ownerId == $0", userId).map(user => ({
+    const getCourses = (userId: number): Courses | null => {
+        if (!realm) return null;
+        return realm.objects<Courses>(COURSES.LANGUAGE_COURSES_TITLE).filtered("ownerId == $0", userId).map(user => ({
             ...user,
             _id: user._id.toString() as unknown as ObjectId,
-        }));
+        }))[0];
     };
 
     const handleLogout = async () => {
         await removeAuthData(dispatch);
     };
 
-    return { data, addUser, handleLogout };
+    return {data, addCourse, handleLogout};
 };

@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {SignInFormInputs, SignUpFormInputs, UseLoginResult} from "../types";
 import {useAppDispatch} from "../../../store/hooks.ts";
-import {signInRequest, signUpRequest} from "../../../services/apiService.ts";
+import {signInRequest, signUpRequest} from "../../../services/apiService/login.ts";
 
 const useLogin = (): UseLoginResult => {
     const dispatch = useAppDispatch();
