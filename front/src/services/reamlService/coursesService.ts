@@ -4,7 +4,6 @@ import {CoursesSchema, CourseSchema, COURSES} from "../../schemas/coursesSchema.
 import {app} from "../../config/realmConfig.ts";
 
 
-
 export async function getRealmCourses(jwtToken: string) {
     try {
         const credentials = Credentials.jwt(jwtToken);
@@ -20,6 +19,12 @@ export async function getRealmCourses(jwtToken: string) {
         sync: {
             flexible: true,
             user: app.currentUser as Realm.AnyUser,
+            newRealmFileBehavior: {
+                type: Realm.OpenRealmBehaviorType.OpenImmediately,
+            },
+            existingRealmFileBehavior: {
+                type: Realm.OpenRealmBehaviorType.OpenImmediately,
+            },
         },
     };
 

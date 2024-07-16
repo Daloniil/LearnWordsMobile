@@ -19,7 +19,8 @@ export const ProfileScreen = () => {
             <Text>Email: {user?.phoneNumber}</Text>
 
             <Text>Your courses: {data.map((course) =>
-                <Text>{course.course.knownLanguage} - {course.course.learningLanguage}, </Text>)}</Text>
+                <Text
+                    key={Number(course._id)}>{course.course.knownLanguage} - {course.course.learningLanguage}, </Text>)}</Text>
 
             <Button title={t('createCourse.add')} onPress={() => navigation.navigate('NewCoursesScreen')}/>
         </SafeAreaView>
