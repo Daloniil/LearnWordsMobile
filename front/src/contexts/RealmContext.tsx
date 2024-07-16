@@ -18,7 +18,6 @@ export const RealmProvider: React.FC<{ children: ReactNode }> = ({children}) => 
 
             if (user) {
                 const realmInstance = await getRealmCourses(user.token);
-
                 setRealm(realmInstance);
             }
         };

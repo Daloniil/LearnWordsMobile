@@ -6,6 +6,7 @@ import {MainScreen} from "../screens/MainScreen";
 import {AuthorizeScreen} from "../screens/AuthorizeScreen";
 import {RootStackParamList} from "./types";
 import useAuthNavigation from "./useAuthNavigation.ts";
+import {CreateCoursesScreen} from "../screens/CreateCoursesScreen";
 
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -22,6 +23,8 @@ const AppNavigator: React.FC = () => {
             <Stack.Screen name="Authorize" component={AuthorizeScreen} options={{headerShown: false}}/>
             <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}}/>
             <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
+            <Stack.Screen name="CreateCourses" component={CreateCoursesScreen} options={{headerShown: false}}/>
+
         </Stack.Navigator>
     );
 };

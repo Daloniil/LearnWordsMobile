@@ -1,44 +1,43 @@
 import {ObjectId} from "bson";
+import {ObjectSchema} from "realm";
 
 export interface Courses {
     _id: ObjectId;
-    courses: Course[];
+    course: Course;
     ownerId: number;
 }
 
 export interface Course {
     _id: ObjectId;
-    mainLanguage: string,
-    secondLanguage: string,
+    knownLanguage: string,
+    learningLanguage: string,
 }
 
-export const CoursesSchema: Realm.ObjectSchema = {
-    name: "LanguageCourses",
+export const CoursesSchema: ObjectSchema = {
+    name: "Courses",
     properties: {
         _id: "objectId",
-        courses: {
-            type: "list",
-            objectType: "Course",
-        },
+        course: "Course",
         ownerId: "int",
     },
     primaryKey: "_id",
 };
 
-export const CourseSchema: Realm.ObjectSchema = {
+export const CourseSchema: ObjectSchema = {
     name: "Course",
     properties: {
         _id: "objectId",
-        mainLanguage: "string",
-        secondLanguage: "string",
+        knownLanguage: "string",
+        learningLanguage: "string",
     },
     primaryKey: "_id",
 };
 
-
 export enum COURSES {
-    LANGUAGE_COURSES_TITLE = "LanguageCourses",
-    LANGUAGE_COURSES_NAME = "languageCourses",
+    COURSES_TITLE = "Courses",
+    COURSES_NAME = "сourses",
     COURSE_TITLE = "Course",
     COURSE_NAME = "course",
+    KNOWN_LANGUAGE = "knownLanguage",
+    LEARNING_LANGUAGE = "learningLanguage"
 }

@@ -25,10 +25,10 @@ export async function getRealmCourses(jwtToken: string) {
 
     const realm = await Realm.open(config);
 
-    const existingSubscription = realm.subscriptions.findByName(COURSES.LANGUAGE_COURSES_NAME);
+    const existingSubscription = realm.subscriptions.findByName(COURSES.COURSES_NAME);
     if (!existingSubscription) {
         await realm.subscriptions.update(mutableSubs => {
-            mutableSubs.add(realm.objects(COURSES.LANGUAGE_COURSES_TITLE), {name: COURSES.LANGUAGE_COURSES_NAME});
+            mutableSubs.add(realm.objects(COURSES.COURSES_TITLE), {name: COURSES.COURSES_NAME});
         });
         await realm.subscriptions.waitForSynchronization();
     }

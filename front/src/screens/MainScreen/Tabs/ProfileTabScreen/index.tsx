@@ -1,10 +1,23 @@
-import {SafeAreaView} from "react-native";
-import {Text} from "../../../../components/Text";
+import {ProfileScreen} from "./ProfileScreen";
+import {createNativeStackNavigator} from "react-native-screens/native-stack";
+import {NewCoursesScreen} from "./NewCoursesScreen";
+
+const Stack = createNativeStackNavigator();
 
 export const ProfileTabScreen = () => {
-    return(
-        <SafeAreaView>
-            <Text>ProfileTabScreen</Text>
-        </SafeAreaView>
-    )
-}
+    return (
+        <Stack.Navigator>
+            <Stack.Screen
+                name="ProfileScreen"
+                component={ProfileScreen}
+                options={{headerShown: false}}
+            />
+            <Stack.Screen
+                name="NewCoursesScreen"
+                component={NewCoursesScreen}
+                options={{headerShown: false}}
+            />
+        </Stack.Navigator>
+    );
+};
+

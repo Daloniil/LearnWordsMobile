@@ -2,8 +2,8 @@ import React from "react";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {EnterTabScreen} from "./Tabs/EnterTabScreen";
 import {DictionaryTabScreen} from "./Tabs/DictionaryTabScreen";
-import {ProfileTabScreen} from "./Tabs/ProfileTabScreen";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {ProfileTabScreen} from "./Tabs/ProfileTabScreen";
 
 const Tab = createBottomTabNavigator();
 

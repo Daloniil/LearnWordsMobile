@@ -1,10 +1,7 @@
-import { useState, useEffect } from "react";
-import { useTranslation } from 'react-i18next';
+import {useState, useEffect} from "react";
 
-const useTypingEffect = () => {
-    const { t } = useTranslation();
+const useTypingEffect = (fullText: string) => {
     const [displayedText, setDisplayedText] = useState("");
-    const fullText = t('welcome.description');
 
     useEffect(() => {
         let index = 0;
@@ -19,7 +16,7 @@ const useTypingEffect = () => {
         return () => clearInterval(interval);
     }, [fullText]);
 
-    return { displayedText, t };
+    return {displayedText};
 };
 
 export default useTypingEffect;

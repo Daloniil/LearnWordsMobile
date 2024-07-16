@@ -27,6 +27,16 @@
     "wrongPhoneNumber": "Phone Number wrong",
     "wrongPassword": "Minimum 6 characters",
     "requiredPassword": "Password required"
+  },
+  "createCourse": {
+    "title": "Create Your Own Course",
+    "description": "Create your language learning course by selecting the language you know and the language you want to learn. This will help you learn a new language in a focused and effective way.",
+    "knownLanguage": "Choose a language you know:",
+    "learningLanguage": "Select the language you will learn:",
+    "selectLanguage": "Select a language",
+    "add": "Add",
+    "validation": "Validation Error",
+    "required": "All fields must be filled in."
   }
 
 }

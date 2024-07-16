@@ -4,44 +4,48 @@ import {removeAuthData} from "../../services/SQLAuthService";
 import {useRealm} from "../../contexts/RealmContext";
 import {ObjectId} from "bson";
 import {Course, COURSES, Courses} from "../../schemas/coursesSchema.ts";
+import {NavigationProp, StackActions, useNavigation} from "@react-navigation/native";
+import {RootStackParamList} from "../../navigation/types";
 
-export const useUserData = () => {
+export const useCourses = () => {
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const realm = useRealm();
     const user = useAppSelector(state => state.user.user);
     const dispatch = useAppDispatch();
-    const [data, setData] = useState<Courses | null>(null);
+    const [data, setData] = useState<Courses[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
             if (user) {
                 const courses = getCourses(user.userId);
-                setData(courses);
+                setData([...courses]);
             }
         };
 
         fetchData();
     }, [realm]);
 
-    const addCourse = async (userId: number, course: Course) => {
-        if (!realm) return;
+    const addCourse = async (course: Course) => {
+        if (!realm || !user) return;
 
         realm.write(() => {
-            realm.create(COURSES.LANGUAGE_COURSES_TITLE, {
+            realm.create(COURSES.COURSES_TITLE, {
                 _id: new ObjectId(),
-                courses: [course],
-                ownerId: userId
+                course,
+                ownerId: user.userId
             });
         });
-        const courses = getCourses(userId);
-        setData(courses);
+        const courses = getCourses(user.userId);
+        setData([...courses]);
+        navigation.dispatch(StackActions.replace('Main'));
     };
 
-    const getCourses = (userId: number): Courses | null => {
-        if (!realm) return null;
-        return realm.objects<Courses>(COURSES.LANGUAGE_COURSES_TITLE).filtered("ownerId == $0", userId).map(user => ({
+    const getCourses = (userId: number): Courses[] => {
+        if (!realm) return [];
+        return realm.objects<Courses>(COURSES.COURSES_TITLE).filtered("ownerId == $0", userId).map(user => ({
             ...user,
             _id: user._id.toString() as unknown as ObjectId,
-        }))[0];
+        }));
     };
 
     const handleLogout = async () => {

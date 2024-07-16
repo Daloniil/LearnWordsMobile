@@ -1174,6 +1174,8 @@ PODS:
     - React
   - RNCAsyncStorage (1.23.1):
     - React-Core
+  - RNCPicker (2.7.7):
+    - React-Core
   - RNGestureHandler (2.16.2):
     - DoubleConversion
     - glog
@@ -1304,6 +1306,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RealmJS (from `../node_modules/realm`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -1432,6 +1435,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/realm"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCPicker:
+    :path: "../node_modules/@react-native-picker/picker"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNLocalize:
@@ -1502,6 +1507,7 @@ SPEC CHECKSUMS:
   ReactCommon: ecad995f26e0d1e24061f60f4e5d74782f003f12
   RealmJS: f86da4f2c5b089d976db335f370449903ddc8fbb
   RNCAsyncStorage: 826b603ae9c0f88b5ac4e956801f755109fa4d5c
+  RNCPicker: b7873ba797dc586bfaf3307d737cbdc620a9ff3e
   RNGestureHandler: 2282cfbcf86c360d29f44ace393203afd5c6cff7
   RNLocalize: b77875884750cb6a58cd6865863fe2ba2729b72b
   RNScreens: b32a9ff15bea7fcdbe5dff6477bc503f792b1208
