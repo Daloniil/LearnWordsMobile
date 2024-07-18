@@ -14,7 +14,7 @@ const LanguagePickerModal: React.FC<LanguagePickerModalProps> = ({
                                                                      onValueChange,
                                                                      languages,
                                                                      filterLanguage,
-                                                                     data,
+                                                                     course,
                                                                      type
                                                                  }) => {
     const {t} = useTranslation();
@@ -39,7 +39,7 @@ const LanguagePickerModal: React.FC<LanguagePickerModalProps> = ({
                                 {languages
                                     .filter(language => language !== filterLanguage)
                                     .map(language => {
-                                        const isLanguageInCourses = data.some(course => language === (type === COURSES.KNOWN_LANGUAGE ? course.course.knownLanguage : course.course.learningLanguage));
+                                        const isLanguageInCourses = course.some(course => language === (type === COURSES.KNOWN_LANGUAGE ? course.course.knownLanguage : course.course.learningLanguage));
                                         if (!isLanguageInCourses) {
                                             return (
                                                 <Picker.Item key={language} label={language} value={language}/>

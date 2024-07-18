@@ -41,3 +41,20 @@ export enum COURSES {
     KNOWN_LANGUAGE = "knownLanguage",
     LEARNING_LANGUAGE = "learningLanguage"
 }
+
+
+export interface SerializedCourse {
+    _id: string;
+    course: {
+        _id: string;
+        knownLanguage: string;
+        learningLanguage: string;
+    };
+    ownerId: number;
+}
+
+
+export interface CoursesState {
+    courses: SerializedCourse | null;
+}
+

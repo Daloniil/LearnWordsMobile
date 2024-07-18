@@ -1,28 +1,64 @@
-import {useTranslation} from "react-i18next";
-import {useAppSelector} from "../../../../../store/hooks.ts";
-import {useCourses} from "../../../../../components/LanguagePicker/useCourses.ts";
-import {Button, SafeAreaView} from "react-native";
+import {Button, SafeAreaView, StyleSheet} from "react-native";
 import {Text} from "../../../../../components/Text";
-import {NavigationProp, useNavigation} from "@react-navigation/native";
-import {ProfileStackParamList} from "../types.ts";
+import RNPickerSelect from 'react-native-picker-select';
+import {useProfileScreen} from "./hook";
 
-export const ProfileScreen = () => {
-    const {t} = useTranslation();
-    const user = useAppSelector(state => state.user.user);
-    const {data} = useCourses();
-    const navigation = useNavigation<NavigationProp<ProfileStackParamList>>();
+export const ProfileScreen: React.FC = () => {
+    const {
+        t,
+        user,
+        selectedCourses,
+        transformedCourses,
+        handleCourseChange,
+        navigateToNewCoursesScreen,
+        course
+    } = useProfileScreen();
 
     return (
         <SafeAreaView>
             <Text>Username: {user?.username}</Text>
             <Text>Email: {user?.email}</Text>
-            <Text>Email: {user?.phoneNumber}</Text>
+            <Text>Phone Number: {user?.phoneNumber}</Text>
+            <Text>Select
+                Course: {selectedCourses?.course.knownLanguage} - {selectedCourses?.course.learningLanguage}</Text>
 
-            <Text>Your courses: {data.map((course) =>
-                <Text
-                    key={Number(course._id)}>{course.course.knownLanguage} - {course.course.learningLanguage}, </Text>)}</Text>
+            <RNPickerSelect
+                onValueChange={handleCourseChange}
+                items={transformedCourses.map(course => ({label: course.label, value: course.id}))}
+                style={pickerSelectStyles}
+                value={selectedCourses?._id}
+            />
 
-            <Button title={t('createCourse.add')} onPress={() => navigation.navigate('NewCoursesScreen')}/>
+            <Text>Your courses: {course.map((course) =>
+                <Text key={course._id.toString()}>
+                    {course.course.knownLanguage} - {course.course.learningLanguage},
+                </Text>
+            )}</Text>
+            <Button title={t('createCourse.add')} onPress={navigateToNewCoursesScreen}/>
         </SafeAreaView>
-    )
-}
+    );
+};
+
+
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+        fontSize: 16,
+        paddingVertical: 12,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 4,
+        color: 'black',
+        paddingRight: 30, // to ensure the text is never behind the icon
+    },
+    inputAndroid: {
+        fontSize: 16,
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        borderWidth: 0.5,
+        borderColor: 'purple',
+        borderRadius: 8,
+        color: 'black',
+        paddingRight: 30, // to ensure the text is never behind the icon
+    },
+});

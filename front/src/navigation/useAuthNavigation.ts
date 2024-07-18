@@ -1,48 +1,37 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {NavigationProp, StackActions, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from "./types";
-import {useAppSelector} from "../store/hooks.ts";
+import {useAppDispatch, useAppSelector} from "../store/hooks.ts";
 import {useCourses} from "../components/LanguagePicker/useCourses.ts";
-import NetInfo from '@react-native-community/netinfo';
+import {loadCourses} from "../store/slices/selectedCourseSlice.ts";
+import {useCourseSelector} from "../utils/useCourseSelector.ts";
 
 const useAuthNavigation = () => {
-    const user = useAppSelector(state => state.user);
-    const {data} = useCourses();
+    const dispatch = useAppDispatch();
+    const user = useAppSelector(state => state.user.user);
+    const {course} = useCourses();
+    const {setCourse} = useCourseSelector()
 
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-    const [isOnline, setIsOnline] = useState<boolean>(false);
 
     useEffect(() => {
-        const unsubscribe = NetInfo.addEventListener(state => {
-            setIsOnline(state.isConnected ?? false);
-        });
-
-        NetInfo.fetch().then(state => {
-            setIsOnline(state.isConnected ?? false);
-        });
-
-        return () => {
-            unsubscribe();
-        };
-    }, []);
+        dispatch(loadCourses());
+    }, [dispatch]);
 
 
     useEffect(() => {
-        // if (isOnline) {
-            if (user.user) {
-                if (data.length) {
-                    navigation.dispatch(StackActions.replace('Main'));
-                } else {
-                    navigation.dispatch(StackActions.replace('CreateCourses'));
-                }
+        if (user) {
+            if (course.length) {
+                navigation.dispatch(StackActions.replace('Main'));
+                if (user) setCourse(user, course[0]);
             } else {
-                navigation.dispatch(StackActions.replace('Welcome'));
+                navigation.dispatch(StackActions.replace('CreateCourses'));
             }
-        // } else {
-        //     navigation.dispatch(StackActions.replace('Offline'));
-        // }
-    }, [user, data]);
+        } else {
+            navigation.dispatch(StackActions.replace('Welcome'));
+        }
+    }, [user, course]);
 };
 
 export default useAuthNavigation;

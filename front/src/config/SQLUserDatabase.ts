@@ -1,6 +1,6 @@
 import SQLite from 'react-native-sqlite-storage';
 
-const db = SQLite.openDatabase(
+const user_db = SQLite.openDatabase(
     {
         name: 'mydb',
         location: 'default',
@@ -13,8 +13,8 @@ const db = SQLite.openDatabase(
     }
 );
 
-const createTables = () => {
-    db.transaction(tx => {
+const user_createTables = () => {
+    user_db.transaction(tx => {
         tx.executeSql(
             `CREATE TABLE IF NOT EXISTS User (
         id INTEGER PRIMARY KEY NOT NULL,
@@ -36,4 +36,4 @@ const createTables = () => {
     });
 };
 
-export { db, createTables };
+export { user_db, user_createTables };

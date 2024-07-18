@@ -7,6 +7,6 @@ export interface LanguagePickerModalProps {
     onValueChange: (value: string) => void;
     languages: string[];
     filterLanguage?: string;
-    data: Courses[]
+    course: Courses[]
     type: COURSES.KNOWN_LANGUAGE | COURSES.LEARNING_LANGUAGE;
 }

@@ -1,5 +1,5 @@
 import {decodeToken} from '../utils/jwtUtils';
-import {setUser, clearUser} from '../store/userSlice';
+import {setUser, clearUser} from '../store/slices/userSlice.ts';
 import {AppDispatch} from '../store/store';
 import {deleteUser, getUser, insertOrUpdateUser} from "../models/SQLUserModel.ts";
 import {UserModelType} from "../models/types/UserModelType.ts";

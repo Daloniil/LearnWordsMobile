@@ -6,19 +6,23 @@ import {ObjectId} from "bson";
 import {Course, COURSES, Courses} from "../../schemas/coursesSchema.ts";
 import {NavigationProp, StackActions, useNavigation} from "@react-navigation/native";
 import {RootStackParamList} from "../../navigation/types";
+import {useCourseSelector} from "../../utils/useCourseSelector.ts";
+import {RootState} from "../../store/store.ts";
 
 export const useCourses = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const realm = useRealm();
     const user = useAppSelector(state => state.user.user);
+    const selectedCourses = useAppSelector((state: RootState) => state.selectedCourses.courses);
     const dispatch = useAppDispatch();
-    const [data, setData] = useState<Courses[]>([]);
+    const {setCourse: setSelectedCourse} = useCourseSelector()
+    const [course, setCourse] = useState<Courses[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
             if (user) {
                 const courses = getCourses(user.userId);
-                setData([...courses]);
+                setCourse([...courses]);
             }
         };
 
@@ -28,15 +32,18 @@ export const useCourses = () => {
     const addCourse = async (course: Course) => {
         if (!realm || !user) return;
 
+        const newCourse = {
+            _id: new ObjectId(),
+            course,
+            ownerId: user.userId
+        };
         realm.write(() => {
-            realm.create(COURSES.COURSES_TITLE, {
-                _id: new ObjectId(),
-                course,
-                ownerId: user.userId
-            });
+            realm.create(COURSES.COURSES_TITLE, newCourse);
         });
         const courses = getCourses(user.userId);
-        setData([...courses]);
+        setCourse([...courses]);
+        if (!selectedCourses) setSelectedCourse(user, newCourse)
+
         navigation.dispatch(StackActions.replace('Main'));
     };
 
@@ -52,5 +59,5 @@ export const useCourses = () => {
         await removeAuthData(dispatch);
     };
 
-    return {data, addCourse, handleLogout};
+    return {course, addCourse, handleLogout};
 };

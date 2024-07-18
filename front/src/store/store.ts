@@ -1,9 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
-import userReducer from './userSlice';
+import userReducer from './slices/userSlice.ts';
+import selectedCoursesReducer from './slices/selectedCourseSlice.ts';
 
 const store = configureStore({
     reducer: {
         user: userReducer,
+        selectedCourses: selectedCoursesReducer,
     },
 });
 

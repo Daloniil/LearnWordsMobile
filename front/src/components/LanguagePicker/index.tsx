@@ -13,7 +13,7 @@ import {COURSES} from "../../schemas/coursesSchema.ts";
 const LanguagePicker = () => {
     const {t} = useTranslation();
     const user = useAppSelector(state => state.user.user);
-    const {data, addCourse} = useCourses();
+    const {course, addCourse} = useCourses();
 
     const [knownLanguage, setKnownLanguage] = useState<string>('');
     const [learningLanguage, setLearningLanguage] = useState<string>('');
@@ -54,7 +54,7 @@ const LanguagePicker = () => {
                 onValueChange={setKnownLanguage}
                 languages={languages}
                 filterLanguage={learningLanguage}
-                data={data}
+                course={course}
                 type={COURSES.KNOWN_LANGUAGE}
             />
 
@@ -75,7 +75,7 @@ const LanguagePicker = () => {
                 onValueChange={setLearningLanguage}
                 languages={languages}
                 filterLanguage={knownLanguage}
-                data={data}
+                course={course}
                 type={COURSES.LEARNING_LANGUAGE}
             />
 

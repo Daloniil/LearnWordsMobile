@@ -1,9 +1,9 @@
-import {db} from "../config/SQLUserDatabase.ts";
+import {user_db} from "../config/SQLUserDatabase.ts";
 import {UserModelType} from "./types/UserModelType.ts";
 
 const insertOrUpdateUser = (user: UserModelType): Promise<void> => {
     return new Promise((resolve, reject) => {
-        db.transaction(tx => {
+        user_db.transaction(tx => {
             tx.executeSql(
                 `INSERT OR REPLACE INTO User (id, email, userId, username, phoneNumber, roles, token) 
          VALUES (1, ?, ?, ?, ?, ?, ?)`,
@@ -21,7 +21,7 @@ const insertOrUpdateUser = (user: UserModelType): Promise<void> => {
 
 const getUser = (): Promise<UserModelType | null> => {
     return new Promise((resolve, reject) => {
-        db.transaction(tx => {
+        user_db.transaction(tx => {
             tx.executeSql(
                 'SELECT * FROM User WHERE id = 1',
                 [],
@@ -43,7 +43,7 @@ const getUser = (): Promise<UserModelType | null> => {
 
 const deleteUser = (): Promise<void> => {
     return new Promise((resolve, reject) => {
-        db.transaction(tx => {
+        user_db.transaction(tx => {
             tx.executeSql(
                 'DELETE FROM User WHERE id = 1',
                 [],

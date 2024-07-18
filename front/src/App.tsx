@@ -7,6 +7,8 @@ import {RealmProvider} from "./contexts/RealmContext.tsx";
 import {SQLProvider} from "./contexts/SQLContext.tsx";
 
 const App: React.FC = () => {
+
+
     return (
         <Provider store={store}>
             <SQLProvider>
